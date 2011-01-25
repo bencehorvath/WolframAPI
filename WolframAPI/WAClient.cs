@@ -55,7 +55,8 @@ namespace WolframAPI
             var result = Parse(response);
 
             var solution = from pod in result.Pods
-                           where pod.Title.ToLower().Contains("solution")
+                           where pod.Title.ToLower().Contains("solution") 
+                           || pod.Title.ToLower().Contains("result")
                            select pod;
 
             return solution.Count() <= 0 ? "No solution." : solution.First().SubPods[0].PlainText;
