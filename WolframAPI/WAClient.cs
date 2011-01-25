@@ -17,7 +17,6 @@ namespace WolframAPI
     /// </summary>
     public sealed class WAClient
     {
-
         /// <summary>
         /// The base WA API url.
         /// </summary>
@@ -42,9 +41,16 @@ namespace WolframAPI
         /// Solves the specified expression.
         /// </summary>
         /// <param name="expression">The expression.</param>
+        /// <exception cref="WolframException">Throws in case of any error.</exception>
+        /// <exception cref="ArgumentNullException">Throws if the specified argument is null.</exception>
         /// <returns>The solution of the given expression</returns>
         public string Solve(string expression)
         {
+            if (string.IsNullOrEmpty(expression))
+            {
+                throw new ArgumentNullException("expression", "The parameter passed to this method was null or empty.");
+            }
+
             var response = Submit(expression);
             var result = Parse(response);
 
@@ -57,15 +63,21 @@ namespace WolframAPI
 
         /// <summary>
         /// Gets the result of the specified expression.
-        /// <para>The expression is returned as <see cref="WAResult"/>WAResult</para> 
+        /// <para>The expression is returned as <see cref="WAResult"/></para> 
         /// so you can manually go through the pods of the response (to get ANY information you'd like)
-        /// <para>It is encouraged to use this method instead of <see cref="Solve"/>Solve</para>
+        /// <para>It is encouraged to use this method instead of <see cref="Solve"/></para>
         /// </summary>
         /// <param name="expression">The expression to solve.</param>
         /// <exception cref="WolframException">Throws in case of any error.</exception>
+        /// <exception cref="ArgumentNullException">Throws if the specified argument is null.</exception>
         /// <returns>The result</returns>
         public WAResult GetResult(string expression)
         {
+            if (string.IsNullOrEmpty(expression))
+            {
+                throw new ArgumentNullException("expression", "The parameter passed to this method was null or empty.");
+            }
+
             var response = Submit(expression);
             var result = Parse(response);
 
@@ -77,9 +89,15 @@ namespace WolframAPI
         /// </summary>
         /// <param name="expression">The expression to post.</param>
         /// <exception cref="WolframException">Throws in case of any error.</exception>
+        /// <exception cref="ArgumentNullException">Throws if the specified argument is null.</exception>
         /// <returns>Raw response</returns>
         public string Submit(string expression)
         {
+            if (string.IsNullOrEmpty(expression))
+            {
+                throw new ArgumentNullException("expression", "The parameter passed to this method was null or empty.");
+            }
+
             try
             {
                 expression = expression.Replace("=", " = ");
@@ -112,8 +130,14 @@ namespace WolframAPI
         /// <param name="response">The response to parse</param>
         /// <returns>The parsed response</returns>
         /// <exception cref="WolframException">Throws in case of any error.</exception>
+        /// <exception cref="ArgumentNullException">Throws if the specified argument is null.</exception>
         public WAResult Parse(string response)
         {
+            if (string.IsNullOrEmpty(response))
+            {
+                throw new ArgumentNullException("response", "The parameter passed to this method was null or empty.");
+            }
+
             try
             {
                 var serializer = new XmlSerializer(typeof (WAResult));
@@ -126,10 +150,6 @@ namespace WolframAPI
                 }
 
                 return result;
-            }
-            catch(ArgumentNullException x)
-            {
-                throw new WolframException("Argument null exception thrown. The response passed to Parse() was probably empty.", x);
             }
             catch(InvalidOperationException x)
             {

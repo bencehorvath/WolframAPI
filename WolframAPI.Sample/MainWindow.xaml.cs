@@ -16,8 +16,7 @@ namespace WolframAPI.Sample
         }
 
         private void Button1Click(object sender, RoutedEventArgs e)
-        {
-            
+        {      
             var client = new WAClient("557QYQ-UUUWTKX95V");
             var solution = client.Solve(textBox1.Text);
 
