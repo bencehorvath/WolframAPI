@@ -1,0 +1,12 @@
+h1. Wolfram API
+
+h3. This library provides:
+
+* An easy way of solving mathematical operations.
+* An easy way of requesting informations about specific words, topics, etc. (WIP)
+* Well documented and clean source code.
+* CLS-compliancy
+
+h3. In order to use, you need:
+
+* An application identifier (AppID) from Wolfram. You can get one for free, you just have to register your application.
