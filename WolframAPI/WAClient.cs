@@ -1,15 +1,13 @@
-﻿
-
-using WolframAPI.Exceptions;
-
-namespace WolframAPI
+﻿namespace WolframAPI
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.IO;
     using System.Linq;
     using System.Net;
     using System.Web;
     using System.Xml.Serialization;
+    using Exceptions;
 
     /// <summary>
     /// Used to handle the response received event which occurs when a response is successfully
@@ -60,21 +58,42 @@ namespace WolframAPI
         /// <returns>The solution of the given expression</returns>
         public string Solve(string expression)
         {
-            if (string.IsNullOrEmpty(expression))
-            {
-                throw new ArgumentNullException("expression", "The parameter passed to this method was null or empty.");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(expression));
+            Contract.Ensures(!string.IsNullOrEmpty(Contract.Result<string>()));
 
             var response = Submit(expression);
             var result = Parse(response);
+            
+            if(result.Pods == null || result.Pods.Count <= 0)
+            {
+                return "No solution found. The response might have been malformed.";
+            }
 
-            var solution = from pod in result.Pods
+            var solution = (from pod in result.Pods
                            where pod.Title.ToLower().Contains("solution") 
                            || pod.Title.ToLower().Contains("result")
                            || pod.Title.ToLower().Contains("derivative")
-                           select pod;
+                           select pod).FirstOrDefault();
 
-            return solution.Count() <= 0 ? "No solution." : solution.First().SubPods[0].PlainText;
+            if(solution == null)
+            {
+                return "No solution found.";
+            }
+
+
+            if (solution.SubPods == null || solution.SubPods.Count <= 0)
+            {
+                return "No solution found. The response might have been malformed.";
+            }
+
+            Contract.Assume(solution.SubPods[0] != null);
+
+            if (string.IsNullOrEmpty(solution.SubPods[0].PlainText))
+            {
+                return "No solution found. The pod order might have changed. Report to devs!";
+            }
+            
+            return solution.SubPods[0].PlainText;
         }
 
         /// <summary>
@@ -95,6 +114,7 @@ namespace WolframAPI
             }
 
             var response = Submit(expression);
+
             var result = Parse(response);
 
             return result;
@@ -109,10 +129,8 @@ namespace WolframAPI
         /// <returns>Raw response</returns>
         public string Submit(string expression)
         {
-            if (string.IsNullOrEmpty(expression))
-            {
-                throw new ArgumentNullException("expression", "The parameter passed to this method was null or empty.");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(expression));
+            Contract.Ensures(!string.IsNullOrEmpty(Contract.Result<string>()));
 
             try
             {
@@ -134,9 +152,11 @@ namespace WolframAPI
                     {
                         OnResponseReceived(returned, expression);
                     }
+
+                    return returned;
                 }
 
-                return returned;
+                return "Couldn't retrieve information!";
             }
             catch(WebException x)
             {
@@ -157,10 +177,8 @@ namespace WolframAPI
         /// <exception cref="ArgumentNullException">Throws if the specified argument is null.</exception>
         public WAResult Parse(string response)
         {
-            if (string.IsNullOrEmpty(response))
-            {
-                throw new ArgumentNullException("response", "The parameter passed to this method was null or empty.");
-            }
+            Contract.Requires<ArgumentNullException>(!string.IsNullOrEmpty(response));
+            Contract.Ensures(Contract.Result<WAResult>() != null);
 
             try
             {
@@ -171,6 +189,11 @@ namespace WolframAPI
                 using (var reader = new StringReader(response))
                 {
                     result = serializer.Deserialize(reader) as WAResult;
+                }
+
+                if(result == null)
+                {
+                    throw new WolframException("Could not deserialize the response. It might have been a malformed one.");
                 }
 
                 return result;

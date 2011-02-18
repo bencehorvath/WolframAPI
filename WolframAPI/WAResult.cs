@@ -1,12 +1,12 @@
-﻿
-namespace WolframAPI
+﻿namespace WolframAPI
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Xml.Serialization;
 
     /// <summary>
-    /// The QueryResult part of the response.
+    /// The QueryResult (main) part of the response.
     /// </summary>
     [Serializable, CLSCompliant(true), XmlRoot("queryresult")]
     public sealed class WAResult : XmlSerialized, IEquatable<WAResult>, IEquatable<string>, ICloneable
@@ -121,11 +121,23 @@ namespace WolframAPI
             return (ToString() == other);
         }
 
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="a">A.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator ==(WAResult a, WAResult b)
         {
             return ReferenceEquals(a, b) || (a.Equals(b));
         }
 
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="a">A.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator !=(WAResult a, WAResult b)
         {
             return !(a == b);
@@ -137,9 +149,24 @@ namespace WolframAPI
         /// <returns>The string representation</returns>
         public override string ToString()
         {
-            return Serialize();
+            Contract.Ensures(!string.IsNullOrEmpty(Contract.Result<string>()));
+
+            var sd = Serialize();
+
+            if (string.IsNullOrEmpty(sd))
+                sd = GetType().FullName;
+
+            return sd;
+            
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object"/> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
+        /// <returns>
+        /// 	<c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -148,6 +175,12 @@ namespace WolframAPI
             return obj.GetType() == typeof (WAResult) && Equals((WAResult) obj);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             unchecked
@@ -168,7 +201,7 @@ namespace WolframAPI
         }
 
         /// <summary>
-        /// Creates a new object that is a copy of the current instance.
+        /// Creates a new object that is a copy of the current <see cref="WAResult"/> instance.
         /// </summary>
         /// <returns>
         /// A new object that is a copy of this instance.
@@ -176,6 +209,8 @@ namespace WolframAPI
         /// <filterpriority>2</filterpriority>
         public object Clone()
         {
+            Contract.Ensures(Contract.Result<object>() != null);
+
             return new WAResult(Success, Error, NumPods, DataTypes, TimedOut, Timing, ParseTiming, ParseTimedOut,
                                 Recalculate, Version, Pods);
         }
