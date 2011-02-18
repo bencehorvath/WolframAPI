@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\WolframException.cs" />
+    <Compile Include="ISerializableType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WAClient.cs" />
     <Compile Include="WAImage.cs" />
     <Compile Include="WAPod.cs" />
     <Compile Include="WAResult.cs" />
     <Compile Include="WASubPod.cs" />
+    <Compile Include="XmlSerialized.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

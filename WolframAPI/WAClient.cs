@@ -12,6 +12,14 @@ namespace WolframAPI
     using System.Xml.Serialization;
 
     /// <summary>
+    /// Used to handle the response received event which occurs when a response is successfully
+    /// retrieved using the API.
+    /// </summary>
+    /// <param name="response">The (raw) response returned.</param>
+    /// <param name="expression">The expression submitted.</param>
+    public delegate void ResponseReceivedEventHandler(string response, string expression);
+
+    /// <summary>
     /// Used to access Wolfram Alpha. 
     /// Submits expressions, retrieves and parses responses.
     /// </summary>
@@ -27,6 +35,12 @@ namespace WolframAPI
         /// The application ID.
         /// </summary>
         private readonly string _appId;
+
+        /// <summary>
+        /// Occurs when a response is successfully retrieved using the API.
+        /// </summary>
+        public event ResponseReceivedEventHandler OnResponseReceived;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WAClient"/> class.
@@ -57,6 +71,7 @@ namespace WolframAPI
             var solution = from pod in result.Pods
                            where pod.Title.ToLower().Contains("solution") 
                            || pod.Title.ToLower().Contains("result")
+                           || pod.Title.ToLower().Contains("derivative")
                            select pod;
 
             return solution.Count() <= 0 ? "No solution." : solution.First().SubPods[0].PlainText;
@@ -111,6 +126,14 @@ namespace WolframAPI
                 using (var client = new WebClient())
                 {
                     returned = client.DownloadString(url);
+                }
+
+                if(!string.IsNullOrEmpty(returned))
+                {
+                    if(OnResponseReceived != null)
+                    {
+                        OnResponseReceived(returned, expression);
+                    }
                 }
 
                 return returned;
