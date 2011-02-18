@@ -11,6 +11,14 @@
     [Serializable, CLSCompliant(true), XmlRoot("queryresult")]
     public sealed class WAResult : XmlSerialized, IEquatable<WAResult>, IEquatable<string>, ICloneable
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WAResult"/> class.
+        /// </summary>
+        public WAResult()
+        {
+            
+        }
+
         internal WAResult(bool success, bool error, int numPods, string dataTypes, string timedOut, double timing, double parseTiming, bool parseTimedOut, string recalculate, string version, List<WAPod> pods)
         {
             Success = success;
@@ -155,7 +163,7 @@
 
             if (string.IsNullOrEmpty(sd))
                 sd = GetType().FullName;
-
+            
             return sd;
             
         }

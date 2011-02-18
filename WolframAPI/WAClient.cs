@@ -73,6 +73,7 @@
                            where pod.Title.ToLower().Contains("solution") 
                            || pod.Title.ToLower().Contains("result")
                            || pod.Title.ToLower().Contains("derivative")
+                           || pod.Title.ToLower().Contains("decimal form")
                            select pod).FirstOrDefault();
 
             if(solution == null)
