@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CONTRACTS_FULL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CONTRACTS_FULL;WITH_ASYNC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\WolframAPI.XML</DocumentationFile>
@@ -69,6 +69,7 @@
     <Compile Include="Exceptions\WolframException.cs" />
     <Compile Include="ISerializableType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collections\UniqueList.cs" />
     <Compile Include="WAClient.cs" />
     <Compile Include="WAImage.cs" />
     <Compile Include="WAPod.cs" />

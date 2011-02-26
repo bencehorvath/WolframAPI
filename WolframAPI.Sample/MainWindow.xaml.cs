@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
 using System.Windows;
-using System.Xml.Serialization;
+using System.Windows.Threading;
 
 namespace WolframAPI.Sample
 {
@@ -13,15 +12,29 @@ namespace WolframAPI.Sample
         public MainWindow()
         {
             InitializeComponent();
+            libVersion.Content = WAClient.Version;
         }
 
         private void Button1Click(object sender, RoutedEventArgs e)
-        {      
+        {
             var client = new WAClient("557QYQ-UUUWTKX95V");
-            
-            var solution = client.Solve(textBox1.Text);
 
-            MessageBox.Show(solution);
+            var expr = textBox1.Text;
+            //var solution = client.Solve(textBox1.Text);
+
+            //MessageBox.Show(solution);
+
+            client.OnSolutionReceived += (solution, expression) =>
+                                             {
+                                                 MessageBox.Show(solution);
+
+                                                 Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                                                                        new Action(() => textBox1.Text = expression));
+                                             };
+
+            client.SolveAsync(expr);
+
+            textBox1.Text = string.Format("Solving: {0}", expr);
         }
     }
 }
