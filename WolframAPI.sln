@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolframAPI", "WolframAPI\Wo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolframAPI.Sample", "WolframAPI.Sample\WolframAPI.Sample.csproj", "{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolframAPI.Console", "WolframAPI.Console\WolframAPI.Console.csproj", "{FAC30995-6D30-40E2-A547-62E9085FFC1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,16 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|x86.ActiveCfg = Release|Any CPU
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -35,6 +27,32 @@ Global
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Release|Mixed Platforms.Build.0 = Release|x86
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Release|x86.ActiveCfg = Release|x86
 		{488FDBFB-FAF4-4C4B-8B96-4067CF0B4063}.Release|x86.Build.0 = Release|x86
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{988DBA54-C500-47AF-B31C-BE12EA83E4AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Debug|x86.Build.0 = Debug|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|x86.ActiveCfg = Release|Any CPU
+		{FAC30995-6D30-40E2-A547-62E9085FFC1B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = WolframAPI.Console\WolframAPI.Console.csproj
+		version = 0.2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

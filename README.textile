@@ -16,7 +16,7 @@ h2. A very simple example
 
 <pre>
 var client = new WAClient("XXXXXX-XXXXXXXXXX"); // replace that with your AppID.
-var solution = client.Solve("33^4 + sqrt(12^2 + 13^2)"); // replace with any mathematical operations
+var solution = client.Solve("33^4 + sqrt(12^2 + 13^2)"); // replace with any mathematical operation
 
 // 'solution' now contains the solution by Wolfram Alpha.
 // report bugs! :)
